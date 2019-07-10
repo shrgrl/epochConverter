@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.css" rel="stylesheet"/>
+<link rel=stylesheet href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type='text/css'>
+<style>
+body{background-color:#f2f2f2;font-family:'Lato', sans-serif;font-weight:300;font-size:16px;color:#555;-webkit-font-smoothing:antialiased;-webkit-overflow-scrolling:touch;}
+h3, h4{font-family:'Lato', sans-serif;font-weight:300;color:#333;}
+h3{font-weight:400;}
+h4{font-weight:400;font-size:20px;}
+p{line-height:28px;margin-bottom:25px;font-size:16px;}
+.centered{text-align:center;}
+.mt{margin-top:40px;margin-bottom:40px;}
+</style>
+</head>
+<body>
+<div style="background-color: #91D3FF">
+	<div class=container>
+	<div class="row mt centered" style="color: #FFF; padding: 10px; border-radius: 10px;">
+	<div class=col-md-4>
+		<h4 class=centered>Current Unix Timestamp</h4>
+		<h3  id="current_timestamp"></h3>
+	</div>
+	<br class="visible-xs visible-sm">
+		<div class=col-md-4>
+			<h4 class=centered>Current Local Time</h4>
+			<h3 id=current_time_local></h3>
+		</div>
+	<br class="visible-xs visible-sm">
+		<div class=col-md-4>
+			<h4>Current UTC Time</h4>
+			<h3 id=current_time_utc></h3>
+		</div>
+	</div>
+	</div>
+</div>
+<div class="ui container">
+	<br><input id="m-to-local"> 
+		<button id="m-to-local-button" onclick ="ikinciKisim()">Timestamp to Human date</button></br>
+		<h4>GMT: <span id="gmtOutput"></span></h4>
+		<h4>Your time zone: <span id="localOutput"></span><span id="gmt"style="color:blue"></span></h4>
+		
+	<br><br><br><div class="form-wrapper" style="margin-left= 25px">					
+		<table class="epoch">
+			<thead>
+				<tr>
+					<th>Year</th>
+					<th>Month</th>
+					<th>Date</th>
+					<th>Hours</th>
+					<th>Minutes</th>
+					<th>Seconds</th>
+					<th>Time Zone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td> 
+						<select id="year" style="width:150px;">
+					<script> //yillarin belirtilen araliklarda dongusu
+							var baslangicYili=1971
+							function yearOption() {
+								var select = document.getElementById('year')
+								for (var i=0; i<=52; i++) {
+									select.options[select.options.length] = new Option(baslangicYili, i)
+									baslangicYili++
+								} 
+							}
+							yearOption();
+						</script>                        
+						</select>
+		
+						<td>
+							<select id="month" style="width:150px;">
+								<option value="1">01 - January</option>
+								<option value="2">02 - February</option>
+								<option value="3">03 - March</option>
+								<option value="4">04 - April</option>
+								<option value="5">05 - May</option>
+								<option value="6">06 - June</option>
+								<option value="7">07 - July</option>
+								<option value="8">08 - August</option>
+								<option value="9">09 - September</option>
+								<option value="10">10 - October</option>
+								<option value="11">11 - November</option>
+								<option value="12">12 - December</option>
+							</select>
+						</td>
+						<td>
+							<select id="date" style="width:50px;"></select>
+								<script> //gunlerin belirtilen araliklarda dongusu
+									var baslangicGun=1
+									baslangicGun=((baslangicGun<10)?"0":"")+baslangicGun
+									function dateOption() {
+										var select = document.getElementById('date')
+										for (var i=1; i<=31; i++) {
+											select.options[select.options.length] = new Option(baslangicGun, i)
+											baslangicGun++
+											baslangicGun=((baslangicGun<10)?"0":"")+baslangicGun
+										} 
+									}
+									dateOption();
+								</script>
+						</td>								
+						<td>
+							<select id="hours" style="width:50px;"></select>
+								<script> //saatlerin belirtilen araliklarda dongusu
+									var baslangicSaat=0
+									baslangicSaat=((baslangicSaat<10)?"0":"")+baslangicSaat
+									function hoursOption() {
+										var select = document.getElementById('hours')
+										for (var i=0; i<=23; i++) {
+											select.options[select.options.length] = new Option(baslangicSaat, i)
+											baslangicSaat++
+											baslangicSaat=((baslangicSaat<10)?"0":"")+baslangicSaat
+										} 
+									}
+									hoursOption();
+						</script>
+						</td>
+						<td>
+							<select id="minutes" style="width:50px;"></select>
+								<script> //dakikalarin belirtilen araliklarda dongusu
+									var baslangicDakika=0
+									baslangicDakika=((baslangicDakika<10)?"0":"")+baslangicDakika
+									function minutesOption() {
+										var select = document.getElementById('minutes')
+										for (var i=0; i<=59; i++) {
+											select.options[select.options.length] = new Option(baslangicDakika, i)
+											baslangicDakika++
+											baslangicDakika=((baslangicDakika<10)?"0":"")+baslangicDakika
+										} 
+									}
+									minutesOption();
+								</script>
+						</td>
+						<td>
+							<select id="seconds" style="width:50px;" ></select>
+								<script> //saniyelerin belirtilen araliklarda dongusu
+									var baslangicSaniye=0
+									baslangicSaniye=((baslangicSaniye<10)?"0":"")+baslangicSaniye
+									function secondsOption() {
+										var select = document.getElementById('seconds')
+										for (var i=0; i<=59; i++) {
+											select.options[select.options.length] = new Option(baslangicSaniye, i)
+											baslangicSaniye++
+											baslangicSaniye=((baslangicSaniye<10)?"0":"")+baslangicSaniye
+										} 
+									}
+									secondsOption();
+								</script>
+						</td>																
+						
+						<td>
+							<select id="timeZone" style="width:80px;">
+								<option value="local">Local</option>									
+								<option value="gmt">GMT</option>
+							</select>
+						</td>								
+						<td><button style="padding:3px 0;margin-left:10px;" id="btn1" >Convert</button></td>				
+				</tr>
+			</tbody>
+		</table>
+		<div id="result" style="margin-left:0px;">
+			<br>Converted epoch timestamp in seconds: <input type="text" id="btn" class="btn btn-default" data-toggle="tooltip"style="visibility:hidden""><span id="resultEpoch" class="timestamp"></span></div>
+	</div>
+</div>
+<script>
+document.getElementById('btn1').onclick = function() { //convert'e basinca ucuncuKisim ve gorunmeyen buton icinde deger gorunsun.
+	ucuncuKisim()
+    document.getElementById('btn').style.visibility = 'visible';
+     
+    
+
+}
+//ilk kisim fonksiyon
+function ilkKisim() 
+{
+    var tarih = new Date() //Date nesnesi tanımladik
+    var yil,ay,gun,saat,dakika,saniye //Degisken tanimlari
+    //Degisken atamalari
+	yil = tarih.getFullYear()
+    ay = tarih.getMonth()+1 //0-11 arasi deger dondurdugu icin
+    gun = tarih.getDate()
+    saat = tarih.getHours()
+    dakika = tarih.getMinutes()
+    saniye = tarih.getSeconds()
+    
+    var artikYillar=0,normalYillar=0,saniyeYil //artik ve normal yillarin saniye hesabi icin degiskenleri
+    for(var j = 1971 ; j<=yil ;j++) //1971'den istenen yila kadar gecen surede
+    {
+        if ((j % 4 === 0 && j % 100 > 0) || (j % 400 === 0)) //artik yillarin sartlari
+            artikYillar++
+        else // normal yillarin sartlari
+           normalYillar++ 
+    }    
+    saniyeYil = (artikYillar * 366 * 24 *60 *60 ) + (normalYillar * 365 * 24 *60 *60) // istenen yila kadar gecen toplam saniye hesabi
+    
+    var i=1,saniyeAy=0 //aylarin saniye hesabi
+    while(i<=ay-1) //son ay bitmedigi icin tamamlanmis aylara gore islem yapilir
+    {
+        switch (i) 
+        {
+            case 1:
+                saniyeAy += (31*24*60*60) //her ayin saniye donusumu
+                break
+            case 2:
+                saniyeAy += (28*24*60*60)
+                break
+            case 3:
+                saniyeAy += (31*24*60*60)
+                break
+            case 4:
+                saniyeAy += (30*24*60*60)
+                break
+            case 5:
+                saniyeAy += (31*24*60*60)
+            case 6:
+                saniyeAy += (30*24*60*60)
+                break
+            case 7:
+                saniyeAy += (31*24*60*60)
+                break
+            case 8:
+                saniyeAy += (31*24*60*60)
+                break
+            case 9:
+                saniyeAy += (30*24*60*60)
+                break
+            case 10:
+                saniyeAy += (31*24*60*60)
+                break
+            case 11:
+                saniyeAy += (30*24*60*60)
+                break
+            case 12:
+                saniyeAy += (31*24*60*60)
+                break
+                
+            default:
+                saniyeAy = 0
+        }
+        i++
+    }
+    var saniyeGun = (gun-1) * 24* 60 * 60 //gunlerin saniye hesabi, tamamlanmayan gun icin -1
+    var saniyeSaat,saniyeDakika = dakika * 60
+    saniyeSaat = saat * 60 *60 //saatin saniye hesabi
+    saniyeDakika = dakika * 60 //dakikanin saniye hesabi
+    var toplamSaniye =saniyeYil+saniyeAy+saniyeGun+saniyeSaat+saniyeDakika+saniye - (3*60*60) //toplam saniyelerden artik saniye cikar
+    document.getElementById("current_timestamp").innerHTML=toplamSaniye //toplam saniyeyi al
+    
+    //ay isimlerini bir dizide tutuyoruz
+    var ayIsim = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"]
+    var ampm //am, pm olarak hesaplama  
+    ampm = saat >= 12 ? 'pm' : 'am' //saat 12'den buyukse pm, kucukse am
+    saat = saat % 12 //saat mod 12 bize saat veriyor
+    saat = saat ? saat : 12; //saat 00 degil 12 olmali
+    saat = saat < 10 ? '0'+saat : saat //10'dan kucuk saatler icin basina 0 koy
+    dakika = dakika < 10 ? '0'+dakika : dakika //10'dan kucuk dakikalar icin basina 0 koy
+    saniye = saniye < 10 ? '0'+saniye : saniye //10'dan kucuk saniyeler icin basina 0 koy
+	//simdiki zamanin tanimi, şimdiki ay bitmedigi icin -1 aliyoruz
+    var currentTime = ayIsim[ay-1] + " " + gun + "," + yil + " " +  saat + ":" + dakika + ":" + saniye +  " " + ampm
+    document.getElementById("current_time_local").innerHTML=currentTime //simdiki zamani al
+    
+    var utcYil, utcAy, utcGun, utcSaat, utcDakika, utcSaniye //utc olarak hesap tanimlari
+    //degisken atamalari
+	utcYil = tarih.getUTCFullYear()
+    utcAy = tarih.getUTCMonth()+1
+    utcGun=tarih.getUTCDate()
+    utcSaat =tarih.getUTCHours()
+    utcDakika=tarih.getUTCMinutes()
+    utcSaniye=tarih.getUTCSeconds()
+    var ampmUTC //am, pm olarak hesaplama
+    ampmUTC = utcSaat >= 12 ? 'pm' : 'am' //saat 12'den buyukse pm, kucukse am
+    utcSaat = utcSaat % 12 //
+    utcSaat = utcSaat ? utcSaat : 12; //saat 00 degil 12 olmali
+    utcSaat = utcSaat < 10 ? '0'+utcSaat : utcSaat //10'dan kucuk saatler icin basina 0 koy
+    utcDakika = utcDakika < 10 ? '0'+utcDakika : utcDakika //10'dan kucuk dakikalar icin basina 0 koy
+    utcSaniye = utcSaniye < 10 ? '0'+utcSaniye : utcSaniye //10'dan kucuk saniyeler icin basina 0 koy
+	//simdiki zamanin tanimi, şimdiki ay bitmedigi icin -1 aliyoruz
+    var utcTime = ayIsim[utcAy-1] + " " + utcGun + "," + utcYil + " " +  utcSaat + ":" + utcDakika + ":" + utcSaniye +  " " + ampmUTC   
+    document.getElementById("current_time_utc").innerHTML=utcTime //simdiki zamani al
+}
+//ikinci kisim fonksiyon
+function ikinciKisim()
+{
+    var toplamSaniye = Number(document.getElementById("m-to-local").value) //input degerini Number'a donusturup degiskene at
+    var simdikiYil,artikYillar=0,normalYillar=0,saniyeYil,kalanSaniye=0 //yil hesabi icin degiskenler
+    simdikiYil = 1970+ Math.floor(toplamSaniye/(365.25*24*60*60)) //1970'den bu zamana gecen yil
+    for(var j = 1971; j<=simdikiYil; j++) //artik ve normal yillar icin dongu
+    {
+        if ((j % 4 === 0 && j % 100 > 0) || (j % 400 === 0)) //artik yil hesabi
+            artikYillar++
+        else //normal yil hesabi
+           normalYillar++ 
+    }
+    saniyeYil = (artikYillar * 366 * 24 *60 *60 ) + (normalYillar * 365 * 24 *60 *60) //yillarin saniye donusumu
+    kalanSaniye = toplamSaniye - saniyeYil //gecen zamandan artakalan saniye
+    var simdikiAy
+    simdikiAy = Math.floor(kalanSaniye / (30.4167*24*60*60))+1 //kalan saniyeyi aya cevirdik
+    
+    var i=1,saniyeAy=0 //aylari saniyeye cevirmek icin tanimlamalar
+    while(i<=simdikiAy-1) //tamamlanmis aya gore
+    {
+        switch (i) 
+        {
+            case 1:
+                saniyeAy += (31*24*60*60)
+                break
+            case 2:
+                saniyeAy += (28*24*60*60)
+                break
+            case 3:
+                saniyeAy += (31*24*60*60)
+                break
+            case 4:
+                saniyeAy += (30*24*60*60)
+                break
+            case 5:
+                saniyeAy += (31*24*60*60)
+            case 6:
+                saniyeAy += (30*24*60*60)
+                break
+            case 7:
+                saniyeAy += (31*24*60*60)
+                break
+            case 8:
+                saniyeAy += (31*24*60*60)
+                break
+            case 9:
+                saniyeAy += (30*24*60*60)
+                break
+            case 10:
+                saniyeAy += (31*24*60*60)
+                break
+            case 11:
+                saniyeAy += (30*24*60*60)
+                break
+            case 12:
+                saniyeAy += (31*24*60*60)
+                break
+                
+            default:
+                saniyeAy = 0
+        }
+        i++
+    }
+    kalanSaniye-= saniyeAy //
+    var simdikiGun,saniyeGun,simdikiSaat,saniyeSaat,simdikiDakika,saniyeDakika,simdikiSaniye,localOutput //
+    simdikiGun = Math.floor(kalanSaniye/(24*60*60)) //kalan saniye gune cevrilip simdiki gune atılır
+    saniyeGun = simdikiGun*(24*60*60) //simdiki gun saniyeye cevriliyor
+    kalanSaniye-= saniyeGun //
+    simdikiSaat = Math.floor(kalanSaniye/(60*60)) //kalan saniye saate cevrilip simdiki saate atılır
+    saniyeSaat = simdikiSaat*60*60 //simdiki saat saniyeye cevriliyor
+    kalanSaniye-= saniyeSaat
+    simdikiDakika = Math.floor(kalanSaniye/(60)) //kalan saniye dakikaya cevrilip simdiki dakikaya atılır
+    saniyeDakika = simdikiDakika*60 //simdiki dakika saniyeye cevriliyor
+    kalanSaniye-= saniyeDakika
+    simdikiSaniye=kalanSaniye
+    simdikiGun++
+    simdikiSaat+=3
+    var ayIsim = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"]
+    var ampm, gmtSaat
+    gmtSaat = simdikiSaat-3 //
+    ampm = simdikiSaat >= 12 ? 'pm' : 'am' //saat 12'den buyukse pm, kucukse am
+    simdikiSaat = simdikiSaat % 12
+    simdikiSaat = simdikiSaat ? simdikiSaat : 12; //saat 00 degil 12 olmali
+    simdikiSaat = simdikiSaat < 10 ? '0'+simdikiSaat : simdikiSaat //10'dan kucuk saatler icin basina 0 koy
+    simdikiDakika = simdikiDakika < 10 ? '0'+simdikiDakika : simdikiDakika //10'dan kucuk dakikalar icin basina 0 koy
+    simdikiSaniye = simdikiSaniye < 10 ? '0'+simdikiSaniye : simdikiSaniye //10'dan kucuk saniyeler icin basina 0 koy
+    var gunler = ["Thursday","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday"] //1970 persembeden basladigi icin
+    var gun = Math.floor((toplamSaniye/(24*60*60)) % 7) //
+    //local olarak cikti
+    localOutput = gunler[gun]+ " "+ayIsim[simdikiAy-1]+" "+simdikiGun+ " "+ simdikiYil+ " "+simdikiSaat +":" +simdikiDakika+":"+simdikiSaniye + " " +ampm
+    document.getElementById("localOutput").innerHTML=localOutput
+    
+	var gmtam,gmtOutput 
+    gmtam = gmtSaat >= 12 ? 'pm' : 'am' //saat 12'den buyukse pm, kucukse am
+    gmtSaat = gmtSaat % 12
+    gmtSaat = gmtSaat ? gmtSaat : 12; //saat 00 degil 12 olmali
+    gmtSaat = gmtSaat < 10 ? '0'+gmtSaat : simdikiSaat //10'dan kucuk saatler icin basina 0 koy
+    
+	//gmt olarak cikti
+    gmtOutput=gunler[gun]+ " "+ayIsim[simdikiAy-1]+" "+simdikiGun+ " "+ simdikiYil+ " "+gmtSaat +":" +simdikiDakika+":"+simdikiSaniye + " " +gmtam
+    document.getElementById("gmtOutput").innerHTML=gmtOutput
+    document.getElementById("gmt").innerHTML=" GMT +03:00"
+}
+
+//ucuncu kisim fonksiyon
+function ucuncuKisim()
+{
+    var y,a,g,s,d,san,gmt,Gmt
+    var yil,ay,gun,saat,dakika,saniye,timeZone
+	//her select icin değerler Number'a donusuyor
+    y= document.getElementById("year")
+    yil = Number(y.options[y.selectedIndex].text)
+    a = document.getElementById("month")
+    ay = parseInt(a.options[a.selectedIndex].text)
+    g = document.getElementById("date")
+    gun = Number(g.options[g.selectedIndex].text)
+    s = document.getElementById("hours")
+    saat = Number(s.options[s.selectedIndex].text)
+    d = document.getElementById("minutes")
+    dakika = Number(d.options[d.selectedIndex].text)
+    san = document.getElementById("seconds")
+    saniye = Number(san.options[san.selectedIndex].text)
+	
+    gmt = document.getElementById("timeZone")
+    Gmt = gmt.options[gmt.selectedIndex].text
+    
+	//artik yil hesabi
+    var gecenYilSayisi,artikYillar=0,normalYillar=0,saniyeYil
+    for(var j = 1971 ; j<=yil ;j++)
+    {
+        if ((j % 4 === 0 && j % 100 > 0) || (j % 400 === 0)) 
+            artikYillar++
+        else
+           normalYillar++ 
+    }
+	//gecen toplam saniye
+    saniyeYil = (artikYillar * 366 * 24 *60 *60 ) + (normalYillar * 365 * 24 *60 *60)
+    var i=1,saniyeAy=0
+    while(i<=ay-1) //bu ay tamamlanmadigi icin bir onceki aya kadar
+    {
+        switch (i) 
+        {
+            case 1:
+                saniyeAy += (31*24*60*60)
+                break
+            case 2:
+                saniyeAy += (28*24*60*60)
+                break
+            case 3:
+                saniyeAy += (31*24*60*60)
+                break
+            case 4:
+                saniyeAy += (30*24*60*60)
+                break
+            case 5:
+                saniyeAy += (31*24*60*60)
+            case 6:
+                saniyeAy += (30*24*60*60)
+                break
+            case 7:
+                saniyeAy += (31*24*60*60)
+                break
+            case 8:
+                saniyeAy += (31*24*60*60)
+                break
+            case 9:
+                saniyeAy += (30*24*60*60)
+                break
+            case 10:
+                saniyeAy += (31*24*60*60)
+                break
+            case 11:
+                saniyeAy += (30*24*60*60)
+                break
+            case 12:
+                saniyeAy += (31*24*60*60)
+                break
+                
+            default:
+                saniyeAy = 0
+        }
+        i++
+    }
+    var saniyeGun = (gun-1) * 24* 60 * 60 //bugun tamamlanmadigi icin bir onceki gune kadar saniyeye cevirme
+    var saniyeSaat, saniyeDakika = dakika * 60, toplamSaniye
+    saniyeSaat = saat * 60 *60
+    saniyeDakika = dakika * 60 
+    var ofset,ofsetSaat,ofsetDakika,toplamOfset,tarih
+    tarih = new Date()
+    ofset =tarih.getTimezoneOffset() //zaman degiskeninin static olmamasi icin
+
+    ofsetSaat = Math.floor(ofset/60)
+    ofsetDakika = Math.floor(ofset%60)
+    toplamOfset = (ofsetSaat*60*60) + (ofsetDakika*60) //toplam ofset saniye
+    
+    
+    if (Gmt == "Local") //zamanin local olarak hesaplanmasi
+    {
+        toplamSaniye =saniyeYil+saniyeAy+saniyeGun+saniyeSaat+saniyeDakika+saniye-(3*60*60)
+
+    }
+    else if (Gmt == "GMT") //zamanin GMT olarak hesaplanmasi
+    {
+        if (toplamOfset < 0)
+			//
+            toplamSaniye =saniyeYil+saniyeAy+saniyeGun+saniyeSaat+saniyeDakika+saniye-(3*60*60)+Math.abs(toplamOfset)
+        else
+           toplamSaniye =saniyeYil+saniyeAy+saniyeGun+saniyeSaat+saniyeDakika+saniye-(3*60*60)+toplamOfset
+    }
+        
+    document.getElementById("btn").value=toplamSaniye
+}  
+
+setInterval(ilkKisim,1000) //zamanin saniyede bir guncellenmesi icin
+</script>
+</body>
+</html>
