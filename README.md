@@ -10,7 +10,7 @@ Uygulamanın ikinci bölümünde aşağıdaki gibi bir ekran yer alıyor ve bu e
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img2.JPG)
 
-Uygulamanın üçüncü ve son bölümünde aşağıdakine benzer bir ekran yer alıyor ve bu ekrandaki her bir HTML form elemanı <i>select</i> olmalıdır. Yani kullanıcı her bir veri girişini bir drop-down listesi sayesinde yapabiliyor. (<strong>Year</strong> için listelenecek değerler 1971 ile 2023, <strong>Month</strong> için 01-January ile 12-December, <strong>Day</strong> için 01 ile 31, <strong>Hour</strong> için 01 ile 23, 
+Uygulamanın üçüncü ve son bölümünde aşağıdakine benzer bir ekran yer alıyor ve bu ekrandaki her bir HTML form elemanı <i>select</i> olmalıdır. Yani kullanıcı her bir veri girişini bir drop-down listesi sayesinde yapabiliyor. (<strong>Year</strong> için listelenecek değerler 1971 ile 2023, <strong>Month</strong> için 01-January ile 12-December, <strong>Day</strong> için 01 ile 31, <strong>Hour</strong> için 01 ile 23, <strong>Minute</strong> için 01 ile 59 ve Second için 01 ile 59 arasındadır.
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img3.JPG)
 
