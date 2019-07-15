@@ -10,7 +10,7 @@ Uygulamanın ikinci bölümünde aşağıdaki gibi bir ekran yer alıyor ve bu e
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img2.JPG)
 
-Uygulamanın üçüncü ve son bölümünde aşağıdaki gibi bir ekran yer alıyor ve bu ekrandaki her bir HTML form elemanı <select> özelliği taşıyor.Yani kullanıcı her bir veri girişini bir drop-down listesi sayesinde yapabiliyor. Öte yandan Time Zone Local veya GMT olarak seçilebiliyor. Kullanıcı veri girişi yaptıktan sonra Convert isimli butonu tıkladığında ilgili tarihe denk gelen Epoch zamanı hemen altta ekrana yansıtılıyor. 
+Uygulamanın üçüncü ve son bölümünde 
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img3.JPG)
 
