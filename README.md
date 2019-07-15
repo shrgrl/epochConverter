@@ -10,6 +10,8 @@ Uygulamanın ikinci bölümünde aşağıdaki gibi bir ekran yer alıyor ve bu e
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img2.JPG)
 
+sfasdfadf
+
 ![](https://github.com/shrgrl/epochConverter/blob/master/img3.JPG)
 
 
