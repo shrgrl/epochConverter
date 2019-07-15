@@ -10,7 +10,7 @@ Uygulamanın ikinci bölümünde aşağıdaki gibi bir ekran yer alıyor ve bu e
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img2.JPG)
 
-Uygulamanın üçüncü ve son bölümünde 
+Uygulamanın üçüncü ve son bölümünde aşağıdakine benzer bir ekran yer alıyor ve bu ekrandaki her bir HTML form elemanı <i>select</i> olmalıdır.
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img3.JPG)
 
