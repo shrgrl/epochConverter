@@ -14,5 +14,5 @@ Uygulamanın üçüncü ve son bölümünde aşağıdakine benzer bir ekran yer 
 
 ![](https://github.com/shrgrl/epochConverter/blob/master/img3.JPG)
 
-
+Projeyi direkt mevcut html sayfasını çalıştırarak kullanabilirsiniz.
   
